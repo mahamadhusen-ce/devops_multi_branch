@@ -68,6 +68,37 @@ document.addEventListener('keydown', (e) => {
         player.jumping = true;
     }
 });
+// Sprite animation example
+const sprite = {
+    img: new Image(),
+    frameWidth: 64,
+    frameHeight: 64,
+    currentFrame: 0,
+    totalFrames: 8,
+    frameCounter: 0,
+    frameDelay: 5
+};
 
+sprite.img.src = 'spritesheet.png';
+
+function animateSprite() {
+    sprite.frameCounter++;
+    if (sprite.frameCounter >= sprite.frameDelay) {
+        sprite.frameCounter = 0;
+        sprite.currentFrame = (sprite.currentFrame + 1) % sprite.totalFrames;
+    }
+    
+    ctx.drawImage(
+        sprite.img,
+        sprite.currentFrame * sprite.frameWidth,
+        0,
+        sprite.frameWidth,
+        sprite.frameHeight,
+        player.x,
+        player.y,
+        player.width,
+        player.height
+    );
+}
 // Start the game
 gameLoop();
